@@ -1,13 +1,4 @@
-$cwhite: #fff;
-$cblack: #000;
-$caccent: #fdc500;
-$cpale: #dcc4ad;
-$cgrey: #e4e2e2;
-$Axiforma: 'Axiforma', sans-serif;
-$GothamPro: 'Gotham Pro', sans-serif;
-@function remC($pxNumber){
-  @return ($pxNumber/19.2) * 1rem;
-}
+
 @mixin borderbox {
     box-sizing: border-box;
 	-webkit-box-sizing: border-box;
