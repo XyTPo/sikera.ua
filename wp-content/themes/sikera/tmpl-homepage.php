@@ -4,6 +4,7 @@ get_template_part( 'mobiledetect' );
 $isMob = new Mobile_Detect;
 $isMob =  $isMob->isMobile();
 $bodydetectClass = ( $isMob )?"mob-l":"pc-l";
+$template_url = get_template_directory_uri();
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js">
@@ -31,8 +32,8 @@ $bodydetectClass = ( $isMob )?"mob-l":"pc-l";
 
 <body <?php body_class($bodydetectClass.' at-top'); ?>>
 <div class="page-wrapper">
-	<header class="fixed-nav">
-		<div class="c-box header-nav-wrap">
+	<header class="header">
+		<div class="c-box header__box">
 			<?php if($isMob){ ?>
 			<div class="mobile-header-nav">
 				<div class="mobile-cursection-lbl">
@@ -44,138 +45,72 @@ $bodydetectClass = ( $isMob )?"mob-l":"pc-l";
 				<div class="mobile-nextsection-trigger">&nbsp;</div>
 			</div>
 			<?php } ?> 
-			<nav class="header-nav">
-				<ul>
-					<?php
-					$MenuListArg = array('posts_per_page' => -1,'post_type' => 'page','post_parent' => 2,
-    					'meta_compare' => '!=','orderby' => 'menu_order','order' => 'DESC','meta_key' => 'page_menu_title','meta_value' => ' ');						
-					$MenuList = new WP_Query( $MenuListArg );
-					if ( $MenuList->have_posts() ) : while ( $MenuList->have_posts() ) : $MenuList->the_post(); ?>
-					<li class="menu-item">
-						<a href="#section-<?php echo get_the_ID();?>"><?php the_field('page_menu_title'); ?></a>
-					</li>
-					<?php endwhile; endif; wp_reset_query(); ?>
-				</ul>
-			</nav>
+            <div class="header__logo">
+                <a class="header__logo-link" href="/">
+                    <img class="header__logo-img fits" src="<?php echo $template_url;?>/img/logo.png">
+                </a>
+            </div>
+			<div class="header__nav">
+                <div class="header__nav-inner">
+                    <div class="header__nav-item">
+                        <a class="header__nav-link" href="#">Продукція</a>
+                    </div>
+                    <div class="header__nav-item">
+                        <a class="header__nav-link" href="#">Блог</a>
+                    </div>
+                    <div class="header__nav-item">
+                        <a class="header__nav-link" href="#">Про компанію</a>
+                    </div>
+                    <div class="header__nav-item">
+                        <a class="header__nav-link" href="#">Контакти</a>
+                    </div>
+                    <div class="header__nav-item langswitch">
+                        <a class="header__nav-link langswitch__trigger" href="#">укр</a>
+                        <div class="langswitch__select">
+                            <div class="langswitch__select-item">
+                                укр
+                            </div>
+                            <div class="langswitch__select-item">
+                                рус
+                            </div>
+                            <div class="langswitch__select-item">
+                                en
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</div>
 		</div>
 	</header>
-	<div class="sections-wrap">
-	<?php
-	$SectionListArg = array('posts_per_page' => -1,'post_type' => 'page','post_parent' => 2,'orderby' => 'menu_order','order' => 'DESC');						
-	$SectionList = new WP_Query( $SectionListArg );
-	if ( $SectionList->have_posts() ) : while ( $SectionList->have_posts() ) : $SectionList->the_post(); 
-	$featuredImageMobileId = get_field('featured_image_mobile');
-	if ($featuredImageMobileId && $isMob) {
-		$sImgUrl = wp_get_attachment_image_src( $featuredImageMobileId, 'full');
-	} else {
-		$sImgUrl = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full');
-	}
-	$postId = get_the_ID();?>
-		<section id="section-<?php echo $postId;?>" class="c-section section-<?php echo $postId;?>">
-			<div class="c-box">
-				<div class="s-title">
-					<?php the_title(); ?>
-				</div>
-				<div class="s-content-wrap">
-					<?php if(!empty($sImgUrl)) { ?>
-					<div class="s-mainimg">
-						<img src="<?php echo $sImgUrl[0];?>">
-					</div>
-					<?php }	if ( !empty( get_the_content() ) ) { ?>
-					<div class="s-content">
-						<?php the_content();?>
-					</div>
-					<?php } ?>
-				</div>
-				<?php $galleryIds = get_field('photo_gallery');
-				if ($galleryIds) { 
-				$galleryIds = explode(",", $galleryIds);?>
-				<div class="s-photogallery-wrap">
-					<div class="s-photogallery-inner">
-						<?php foreach($galleryIds as $key => $galleryId):	
-						$galleryImgUrl = wp_get_attachment_image_src( $galleryId, 'full');?>
-						<div class="photogallery-item">
-							<div class="photogallery-image">
-								<img src="<?php echo $galleryImgUrl[0];?>">	
-							</div>	
-							<?php 						
-							$galleryImg = get_post($galleryId);
-							$galleryImgCaption = $galleryImg->post_content; 
-							if ( !empty( $galleryImgCaption ) ) {?>
-							<div class="photogallery-caption">
-								<?php echo $galleryImgCaption;?>
-							</div>	
-							<?php } ?>
-						</div>	
-						<?php endforeach; ?>	
-					</div>	
-				</div>	
-				<?php }
-				if ($postId == 30) {  
-					$ChildListArg = array('posts_per_page' => 3,'post_type' => 'page','post_parent' => $postId,'orderby' => 'menu_order','order' => 'ASC',);						
-					$ChildList = new WP_Query( $ChildListArg );
-					if ( $ChildList->have_posts() ) { ?>
-					<div class="s30-cols-wrap">
-						<div class="s30-cols-block clearfix">
-							<?php while ( $ChildList->have_posts() ) : $ChildList->the_post();
-							$sImgUrl = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full');?> 
-							<div class="s30-col">
-								<div class="s30-col-inner">
-									<div class="s30-col-img">
-										<img src="<?php echo $sImgUrl[0];?>">
-									</div>
-									<div class="s30-col-title">
-										<?php the_title();?>
-									</div>
-									<div class="s30-col-content">
-										<?php the_content();?>
-									</div>
-								</div>
-							</div>
-							<?php endwhile; ?> 
-						</div>
-					</div>
-					<?php 
-					}
-					wp_reset_query();		
-				}
-				if ($postId == 58) {  
-					$ChildListArg = array('posts_per_page' => -1,'post_type' => 'page','post_parent' => $postId,'orderby' => 'menu_order','order' => 'ASC',);						
-					$ChildList = new WP_Query( $ChildListArg );
-					if ( $ChildList->have_posts() ) { ?>
-					<div class="s-photogallery-wrap">
-						<div class="s-photogallery-inner s-video-block">
-							<?php while ( $ChildList->have_posts() ) : $ChildList->the_post();
-							$sImgUrl = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full');
-							if (get_field('video_link')) : ?> 
-							<div class="photogallery-item">
-								<div class="photogallery-video-block">
-									<div class="photogallery-video">
-										<video controls="controls" controlsList="nodownload" <?php if (!empty($sImgUrl)) echo 'poster="'.$sImgUrl[0].'"'?> >
-											<source src="<?php the_field('video_link');?>" type="video/mp4">
-										</video>
-									</div>	
-								</div>	
-							</div>	
-							<?php 
-							endif;
-							endwhile; 
-							?> 
-						</div>
-					</div>
-					<?php 
-					}
-					wp_reset_query();		
-				}
-				?>	
-			</div>
-		</section>
-	<?php 
-	endwhile; endif; wp_reset_query();?>
-	</div>
-	<?php
-	wp_footer(); 
-	?>
+    <div class="ls-stscreen">
+        <div class="c-box">
+            <div class="ls-stscreen__title-wrap">
+                <div class="ls-stscreen__title-1">
+                    СІКЕРА
+                </div>
+                <div class="ls-stscreen__title-2">
+                    СМАК ТИСЯЧОЛІТТЯ
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <?php
+        wp_footer(); 
+        ?>
+    </footer>
+    <script>
+        jQuery( document ).ready(function($) {
+            $('.langswitch__trigger').click(function(e){
+                $(this).parents('.langswitch').toggleClass('show-lang-select');
+                e.preventDefault();
+            });
+            $('.langswitch__select-item').click(function(e){
+                $(this).parents('.langswitch').toggleClass('show-lang-select');
+                e.preventDefault();
+            });
+        });
+    </script>
 </div>
 </body>
 </html>
