@@ -31,57 +31,8 @@ $template_url = get_template_directory_uri();
 </head>
 
 <body <?php body_class($bodydetectClass.' at-top'); ?>>
-<div class="page-wrapper">
-	<header class="header">
-		<div class="c-box header__box">
-			<?php if($isMob){ ?>
-			<div class="mobile-header-nav">
-				<div class="mobile-cursection-lbl">
-					<span>&nbsp;</span>
-				</div>
-				<div class="mobile-menu-trigger">
-					<hr /><hr /><hr />
-				</div>
-				<div class="mobile-nextsection-trigger">&nbsp;</div>
-			</div>
-			<?php } ?> 
-            <div class="header__logo">
-                <a class="header__logo-link" href="/">
-                    <img class="header__logo-img fits" src="<?php echo $template_url;?>/img/logo.png">
-                </a>
-            </div>
-			<div class="header__nav">
-                <div class="header__nav-inner">
-                    <div class="header__nav-item">
-                        <a class="header__nav-link" href="#">Продукція</a>
-                    </div>
-                    <div class="header__nav-item">
-                        <a class="header__nav-link" href="#">Блог</a>
-                    </div>
-                    <div class="header__nav-item">
-                        <a class="header__nav-link" href="#">Про компанію</a>
-                    </div>
-                    <div class="header__nav-item">
-                        <a class="header__nav-link" href="#">Контакти</a>
-                    </div>
-                    <div class="header__nav-item langswitch">
-                        <a class="header__nav-link langswitch__trigger" href="#">укр</a>
-                        <div class="langswitch__select">
-                            <div class="langswitch__select-item">
-                                укр
-                            </div>
-                            <div class="langswitch__select-item">
-                                рус
-                            </div>
-                            <div class="langswitch__select-item">
-                                en
-                            </div>
-                        </div>
-                    </div>
-                </div>
-			</div>
-		</div>
-	</header>
+<div class="page-wrapper">    	
+    <?php include( locate_template( 'header.php', false, false ) );  ?>
     <div class="ls-stscreen">
         <div class="c-box">
             <div class="ls-stscreen__title-wrap">
@@ -95,24 +46,11 @@ $template_url = get_template_directory_uri();
         </div>
     </div>
     <div style="color: #fff">
-    </div>
-    <footer>
-        <?php
-        wp_footer(); 
-        ?>
-    </footer>
-    <script>
-        jQuery( document ).ready(function($) {
-            $('.langswitch__trigger').click(function(e){
-                $(this).parents('.langswitch').toggleClass('show-lang-select');
-                e.preventDefault();
-            });
-            $('.langswitch__select-item').click(function(e){
-                $(this).parents('.langswitch').toggleClass('show-lang-select');
-                e.preventDefault();
-            });
-        });
-    </script>
+    <svg  class="icon shape-codepen">
+  <use xlink:href="#mouse-scroll"></use>
+</svg>
+    </div>    
+    <?php include( locate_template( 'footer.php', false, false ) );  ?>
 </div>
 </body>
 </html>
