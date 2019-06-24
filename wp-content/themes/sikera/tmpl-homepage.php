@@ -94,6 +94,8 @@ $template_url = get_template_directory_uri();
             </div>
         </div>
     </div>
+    <div style="color: #fff">
+    </div>
     <footer>
         <?php
         wp_footer(); 
