@@ -58,13 +58,88 @@ add_action('wp_footer', 'my_deregister_scripts');
 function page_assets_includes() {
     if ($GLOBALS['pagenow'] != 'wp-login.php' && !is_admin()) {
 
+        wp_register_style('owlcarousel_styles', get_template_directory_uri().
+            '/assets/css/owl.carousel.min.css', array(), '1.0.0', 'all');
+        wp_enqueue_style('owlcarousel_styles'); // Enqueue it!
+
         wp_register_style('theme_styles', get_template_directory_uri().
             '/style.css', array(), '1.0.0', 'all');
-        wp_enqueue_style('theme_styles'); // Enqueue it!		
+        wp_enqueue_style('theme_styles'); // Enqueue it!
+        
+        wp_register_script('owlcarousel', get_template_directory_uri().
+            '/assets/js/owl.carousel.min.js', array('jquery'), '1.0.0'); // OwlCarousel
+        wp_enqueue_script('owlcarousel'); // Enqueue it!
+
+        wp_register_script('dotdotdot', get_template_directory_uri().
+            '/assets/js/jquery.dotdotdot.min.js', array('jquery'), '1.0.0'); // dotdotdot
+        wp_enqueue_script('dotdotdot'); // Enqueue it!
+
         wp_register_script('html5blankscripts', get_template_directory_uri().
-            '/js/scripts.js', array('jquery'), '1.0.0'); // Custom scripts
+            '/assets/js/scripts.js', array('jquery'), '1.0.0'); // Custom scripts
         wp_enqueue_script('html5blankscripts'); // Enqueue it!
-    }
+    } 
 }
 add_action('init', 'page_assets_includes');
-add_theme_support( 'post-thumbnails', array( 'post', 'page' ) );
+add_theme_support( 'post-thumbnails', array( 'post', 'page', 'goods', 'news' ) );
+
+add_action('init', 'my_custom_init');
+function my_custom_init(){
+    register_post_type('goods', array(
+        'labels'             => array(
+            'name'               => 'Товари',
+            'singular_name'      => 'Товари',
+            'add_new'            => 'Додати',
+            'add_new_item'       => 'Додати',
+            'edit_item'          => 'Редагувати',
+            'new_item'           => 'Новий запис',
+            'view_item'          => 'Переглянути',
+            'search_items'       => 'Шукати',
+            'not_found'          => 'Не знайдено',
+            'not_found_in_trash' => 'Не знайдено в кошику',
+            'parent_item_colon'  => '',
+            'menu_name'          => 'Товари'
+
+        ),
+        'public' => true,
+        'has_archive' => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => true,
+        'capability_type'    => 'post',
+        'hierarchical'       => false,
+        'menu_position'      => null,
+        'menu_icon' => 'dashicons-cart',
+        'supports' => array( 'title', 'editor', 'thumbnail')
+    ) );
+    register_post_type('news', array(
+        'labels'             => array(
+            'name'               => 'Новини',
+            'singular_name'      => 'Новини',
+            'add_new'            => 'Додати',
+            'add_new_item'       => 'Додати',
+            'edit_item'          => 'Редагувати',
+            'new_item'           => 'Новий запис',
+            'view_item'          => 'Переглянути',
+            'search_items'       => 'Шукати',
+            'not_found'          => 'Не знайдено',
+            'not_found_in_trash' => 'Не знайдено в кошику',
+            'parent_item_colon'  => '',
+            'menu_name'          => 'Новини'
+
+        ),
+        'public' => true,
+        'has_archive' => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => true,
+        'capability_type'    => 'post',
+        'hierarchical'       => false,
+        'menu_position'      => null,
+        'menu_icon' => 'dashicons-cart',
+        'supports' => array( 'title', 'editor', 'thumbnail')
+    ) );
+}

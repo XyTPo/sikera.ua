@@ -48,19 +48,19 @@
                 }     
             }                   
         });
-        
-        $('.mobile-nextsection-trigger').click(function(e){
-            var cursectionIndex = $('#'+currentSectionId).index();
-            cursectionIndex = (cursectionIndex < 0 ) ? 0 : cursectionIndex;
-            var targetsection = $('.c-section').eq(cursectionIndex+1);
-            if (targetsection.length > 0) {
-                $("html, body").animate({ scrollTop: targetsection.offset().top }, 600);
-            }
-            e.preventDefault();
+
+        $('.ls-goods__slider-block').owlCarousel({
+            loop:true,
+            margin:10,
+            nav:true,
+            items:3,
+            center: true,
+			navText: ['', ''],
         });
-        $('.mobile-menu-trigger').click(function(e){
-            $('body').toggleClass('mobmenu-visible');
-            e.preventDefault();
+        $('.ddd').dotdotdot({
+            ellipsis: '... ',
+            wrap: 'letter',
+            watch: true,
         });
 	});
 	

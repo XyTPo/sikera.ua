@@ -68,11 +68,5 @@
 	<symbol id="si-facebook" viewBox="0 0 430.113 430.114">		
 		<path style="fill:none;stroke-width:6;" d="M70.47,31.62l-16.42,29L20.55,61L3.47,32.38l16.42-29l33.5-0.38L70.47,31.62z"/>
 	</symbol>
-	<symbol id="hexagon-narrow" viewBox="0 0 430.113 430.114">		
-		<path style="fill:none;stroke-width:6;" d="M70.47,31.62l-16.42,29L20.55,61L3.47,32.38l16.42-29l33.5-0.38L70.47,31.62z"/>
-	</symbol>
-	<symbol id="hexagon-wide" viewBox="0 0 430.113 430.114">		
-		<path style="fill:none;stroke-width:6;" d="M45,20.27l-10.05,17.5L14.45,38L4,20.73l10.05-17.5L34.55,3L45,20.27z"/>
-	</symbol>
 	
 </svg>
