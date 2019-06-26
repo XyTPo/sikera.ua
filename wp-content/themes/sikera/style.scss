@@ -1175,4 +1175,39 @@ body:not(.at-top) .header {
         display: flex;
         align-items: center;
     }
+    &__links-item {
+        color: #808080;
+        &:not(:first-child) {
+            margin-left: 45px;
+        }
+    }
+    &__links-icon {
+        display: inline-block;
+        vertical-align: middle;
+        &-phone {
+            width: 12px;
+            height: 14px;
+        }
+        &-phone {
+            width: 12px;
+            height: 14px;
+        }
+        &-mail {
+            width: 19px;
+            height: 14px;
+        }
+        &-instagram {
+            width: 19px;
+            height: 19px;
+        }
+        &-facebook {
+            width: 20px;
+            height: 20px;
+        }
+    }
+    &__links-text {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 8px;
+    }
 }
